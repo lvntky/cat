@@ -1,11 +1,32 @@
 #include "../include/thread_pool.h"
 
-// check it
 void *thread_pool_worker_thread(void *arg)
 {
-	thread_pool_t *thread_pool = (thread_pool_t *)arg;
-	// TODO: MAIN WORKER THREAD FUNCTION
-	printf("LOG: %s\n", "you are on thread_pool_worker_thread()");
+	// Cast the argument to the thread pool structure
+	thread_pool_t *pool = (thread_pool_t *)arg;
+
+	// Worker thread main loop
+	while (1) {
+		// TODO: Retrieve a task from the task queue or task list
+		// (Ensure thread safety when accessing shared data structures)
+
+		// TODO: Execute the retrieved task
+
+		// TODO: Handle task completion or errors
+
+		// For illustration purposes, here we just print a message
+		printf("Worker thread %ld: Executing task...\n",
+		       pthread_self());
+
+		// Simulate some work by sleeping for a short duration
+		usleep(100000); // Sleep for 100 milliseconds (100000 microseconds)
+
+		// For demonstration, worker threads will continue to execute tasks until cancelled
+		// In a real-world scenario, you'd implement logic for stopping the thread when necessary
+	}
+
+	// The worker thread will never reach here, as it's designed to run indefinitely
+	// However, a return statement is added to avoid compiler warnings
 	return NULL;
 }
 
@@ -17,7 +38,7 @@ void *thread_pool_worker_thread(void *arg)
 int thread_pool_limit_handler(int *number_of_threads)
 {
 	if (number_of_threads == NULL) {
-		return -1; // Invalid input
+		return RETURN_FAILURE; // Invalid input
 	}
 
 	if (*number_of_threads < THREAD_POOL_MIN_LIMIT) {
@@ -26,7 +47,7 @@ int thread_pool_limit_handler(int *number_of_threads)
 		*number_of_threads = THREAD_POOL_MAX_LIMIT;
 	}
 
-	return 0; // Success
+	return RETURN_SUCCESS; // Success
 }
 
 thread_pool_t *thread_pool_init(int number_of_threads)
@@ -76,4 +97,12 @@ thread_pool_t *thread_pool_init(int number_of_threads)
 	}
 
 	return thread_pool;
+}
+
+void thread_pool_destroy(thread_pool_t *pool)
+{
+	if (pool != NULL) {
+		free(pool->threads);
+		free(pool);
+	}
 }

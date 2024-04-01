@@ -13,6 +13,9 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
+#define RETURN_SUCCESS 0
+#define RETURN_FAILURE -1
+
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdio.h>
