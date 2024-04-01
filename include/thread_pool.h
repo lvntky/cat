@@ -13,7 +13,7 @@
 #ifndef __THREAD_POOL_H__
 #define __THREAD_POOL_H__
 
-#include "../common.h"
+#include "common.h"
 
 typedef struct thread_pool
 {
