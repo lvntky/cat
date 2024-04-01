@@ -14,5 +14,7 @@
 #define __COMMON_H__
 
 #include <pthread.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #endif //__COMMON_H__
