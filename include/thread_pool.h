@@ -13,14 +13,15 @@
 #ifndef __THREAD_POOL_H__
 #define __THREAD_POOL_H__
 
+#define THREAD_POOL_MIN_LIMIT 2
+#define THREAD_POOL_MAX_LIMIT 200
+
 #include "common.h"
 
-typedef struct thread_pool
-{
-    pthread_t *threads;
-    int number_of_threads;
+typedef struct thread_pool {
+	pthread_t *threads;
+	int number_of_threads;
 } thread_pool_t;
-
 
 /**
  * @brief thread poool initializer
@@ -38,7 +39,7 @@ thread_pool_t *thread_pool_init(int number_of_threads);
  * @param task 
  * @param arg 
  */
-void thread_pool_submit(thread_pool_t *pool, void (*task)(void *), void* arg);
+void thread_pool_submit(thread_pool_t *pool, void (*task)(void *), void *arg);
 
 /**
  * @brief Retrieve tasks from the task queue or directly from the pool's task list

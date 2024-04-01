@@ -7,8 +7,34 @@ void *thread_pool_worker_thread(void *arg)
 	return NULL;
 }
 
+/**
+ * @brief handle given number_of_threads accordingly for various cases
+ * 
+ * @param number_of_threads 
+ */
+int thread_pool_limit_handler(int *number_of_threads)
+{
+	if (number_of_threads == NULL ||
+	    number_of_threads < THREAD_POOL_MIN_LIMIT) {
+		number_of_threads = THREAD_POOL_MAX_LIMIT;
+		return 0;
+	}
+
+	if (number_of_threads > THREAD_POOL_MAX_LIMIT) {
+		number_of_threads = THREAD_POOL_MAX_LIMIT;
+		return 0;
+	}
+
+	return -1;
+}
+
 thread_pool_t *thread_pool_init(int number_of_threads)
 {
+	if (thread_pool_limit_handler(number_of_threads) != 0) {
+		// TODO: log error here
+		return NULL;
+	}
+
 	thread_pool_t *thread_pool = malloc(sizeof(thread_pool_t));
 	thread_pool->number_of_threads = number_of_threads;
 	thread_pool->threads = malloc(number_of_threads * sizeof(pthread_t));

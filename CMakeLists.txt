@@ -6,6 +6,8 @@ project(cat VERSION 1.0.0 DESCRIPTION "CAT: C Advanced Threads Library")
 add_library(${PROJECT_NAME} SHARED
     ./src/cat.c
     ./include/cat.h
+    ./src/thread_pool.c
+    ./include/thread_pool.h
 )
 
 # Configure the directories to search for header files.
@@ -16,3 +18,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 # Set the public header property to the one with the actual API.
 set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER source/convert.h)
+
+# Set compiler flags
+#target_compile_options(${PROJECT_NAME} PRIVATE
+#    -Wall
+#    -Wextra
+#    -Werror
+#    -pedantic
+# )
