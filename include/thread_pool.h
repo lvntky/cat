@@ -18,9 +18,19 @@
 
 #include "common.h"
 
+typedef struct thread_pool_task {
+	void (*function)(void *); // Pointer to the task function
+	void *argument; // Argument to pass to the task function
+} thread_pool_task_t;
+
 typedef struct thread_pool {
 	pthread_t *threads;
 	int number_of_threads;
+	thread_pool_task_t *task_queue;
+	int queue_size;
+	int queue_capacity;
+	pthread_mutex_t queue_mutex;
+	pthread_cond_t queue_not_empty;
 } thread_pool_t;
 
 /**
@@ -71,5 +81,14 @@ void thread_pool_resize(thread_pool_t *pool, int new_thread_count);
  * @param pool 
  */
 void thread_pool_destroy(thread_pool_t *pool);
+
+/**
+ * @brief wait function for pool
+ * 
+ * @param pool 
+ * 
+ * Wait all the work(both queue and active) is done.  
+ */
+void thread_pool_wait(thread_pool_t *pool);
 
 #endif //__THREAD_POOL_H__
