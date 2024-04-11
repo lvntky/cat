@@ -106,3 +106,12 @@ void thread_pool_destroy(thread_pool_t *pool)
 		free(pool);
 	}
 }
+
+void thread_pool_submit(thread_pool_t *pool, void (*task)(void *), void *arg)
+{
+}
+
+int thread_pool_get_size(thread_pool_t *pool)
+{
+	return pool->number_of_threads;
+}

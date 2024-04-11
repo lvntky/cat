@@ -18,9 +18,13 @@
 
 #include "common.h"
 
+/**
+ * @brief 
+ * The main task 
+ */
 typedef struct thread_pool_task {
-	void (*function)(void *); // Pointer to the task function
-	void *argument; // Argument to pass to the task function
+	void (*function)(void *);
+	void *argument;
 } thread_pool_task_t;
 
 typedef struct thread_pool {
@@ -45,9 +49,9 @@ thread_pool_t *thread_pool_init(int number_of_threads);
  * @brief Add the task to the task queue or directly assign it to a worker thread
  * Ensure thread safety when accessing shared data structures
  * 
- * @param pool 
- * @param task 
- * @param arg 
+ * @param pool ist the related pool to assign task
+ * @param task the function that needs to be executed by pool workers
+ * @param arg arguments of the given task
  */
 void thread_pool_submit(thread_pool_t *pool, void (*task)(void *), void *arg);
 
@@ -83,12 +87,14 @@ void thread_pool_resize(thread_pool_t *pool, int new_thread_count);
 void thread_pool_destroy(thread_pool_t *pool);
 
 /**
- * @brief wait function for pool
+ * @brief wait function(blocker) for pool
  * 
  * @param pool 
  * 
  * Wait all the work(both queue and active) is done.  
  */
 void thread_pool_wait(thread_pool_t *pool);
+
+int thread_pool_get_size(thread_pool_t *pool);
 
 #endif //__THREAD_POOL_H__
