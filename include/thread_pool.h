@@ -15,6 +15,7 @@
 
 #define THREAD_POOL_MIN_LIMIT 2
 #define THREAD_POOL_MAX_LIMIT 200
+#define THREAD_POOL_INITIAL_QUEUE_CAPACITY 100
 
 #include "common.h"
 
@@ -43,7 +44,7 @@ typedef struct thread_pool {
  * @param number_of_threads 
  * @return thread_pool_t* 
  */
-thread_pool_t *thread_pool_init(int number_of_threads);
+thread_pool_t *thread_pool_init(int number_of_threads, int queue_size);
 
 /**
  * @brief Add the task to the task queue or directly assign it to a worker thread
@@ -95,6 +96,12 @@ void thread_pool_destroy(thread_pool_t *pool);
  */
 void thread_pool_wait(thread_pool_t *pool);
 
+/**
+ * @brief Return the current size of the related pool
+ * 
+ * @param pool 
+ * @return int pool->number_of_threads
+ */
 int thread_pool_get_size(thread_pool_t *pool);
 
 #endif //__THREAD_POOL_H__

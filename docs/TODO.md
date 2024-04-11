@@ -1,9 +1,15 @@
 # CAT ToDo List
 
 - [ ] Thread Pool Management
-  - [ ] Thread pool manager that can dynamically manage a pool of worker threads.
-  - [ ] Functions for creating, resizing, and destroying thread pools.
-  - [ ] Functionality for submitting tasks to the thread pool for execution 
+  - [x] Thread pool manager that can dynamically manage a pool of worker threads.
+  - [x] Functions for creating, resizing, and destroying thread pools.
+  - [x] Functionality for submitting tasks to the thread pool for execution
+  - [ ] Dynamic Task queue size: dynamic resizing mechanism for the task queue to handle varying workloads
+  - [ ] Task priority
+  - [ ] Task Completion callbacks
+  - [ ] More advanced Error Handlings
+  - [ ] Task Timeouts
+  - [ ] Resource limiter
 - [ ] Asynchronous Task Execution
   - [ ] Mechanism for executing tasks asynchronously without explicitly creating threads.
   - [ ] Interface for scheduling tasks to run in the background and providing callbacks upon completion.
